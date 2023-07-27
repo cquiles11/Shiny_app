@@ -72,20 +72,17 @@ server <- function(input, output) {
         return(df)
     })
     
-model <- lm(formula = y~x, dataInput())
-    
  output$scatterPlot <- renderPlot({
         ggplot(dataInput(), aes(x = dataInput()$x, y = dataInput()$y),
              colour = 'red') +
   geom_point()
 })
     
- output$LRPlot <- renderPlot({
+ output$LMPlot <- renderPlot({ 
      ggplot(dataInput(), aes(x = dataInput()$x, y = dataInput()$y),
              colour = 'red') +
   geom_point() +
-  geom_line(dataInput(), aes(x = dataInput()$x, y = predict(model, newdata = dataInput())),
-            colour = 'blue')
+  geom_smooth(method = "lm", se=FALSE)
 })
  
  output$contents <- renderTable({
